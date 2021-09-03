@@ -1,42 +1,30 @@
-import React, { Component } from 'react';
+import {useRef, useEffect} from 'react'
 
 type MyProps = {
   streamManager: any
 }
 
-type MyState = {
-  videoRef: any
-}
+const OpenViduVideoComponent = ({streamManager}: MyProps) => {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const mounted = useRef<boolean>(false);
 
-export default class OpenViduVideoComponent extends Component<MyProps, MyState> {
+  useEffect(() => {
+    if (!mounted.current) {
 
-
-  constructor(props: any) {
-    super(props);
-
-    this.state = {
-      videoRef: undefined
-    };
-
-  }
-
-    componentDidUpdate(props:any) {
-        if (props && !!this.state.videoRef) {
-            this.props.streamManager.addVideoElement(this.state.videoRef.current);
+        if (streamManager && !!videoRef) {
+            streamManager.addVideoElement(videoRef.current);
+        }
+      mounted.current = true;
+    } else {
+        if (streamManager && !!videoRef) {
+            streamManager.addVideoElement(videoRef.current);
         }
     }
+  });
 
-    componentDidMount() {
-      this.setState({
-            videoRef: React.createRef(),
-        });
-        if (this.props && !!this.state.videoRef) {
-            this.props.streamManager.addVideoElement(this.state.videoRef.current);
-        }
-    }
-
-    render() {
-        return <video autoPlay={true} ref={this.state.videoRef} />;
-    }
-
+  return (
+    <video autoPlay={true} ref={videoRef} />
+  )
 }
+
+export default OpenViduVideoComponent
