@@ -17,9 +17,7 @@ export default class OpenViduVideoComponent extends Component<MyProps, MyState> 
     this.state = {
       videoRef: undefined
     };
-    this.setState({
-            videoRef: React.createRef(),
-        });
+
   }
 
     componentDidUpdate(props:any) {
@@ -29,6 +27,9 @@ export default class OpenViduVideoComponent extends Component<MyProps, MyState> 
     }
 
     componentDidMount() {
+      this.setState({
+            videoRef: React.createRef(),
+        });
         if (this.props && !!this.state.videoRef) {
             this.props.streamManager.addVideoElement(this.state.videoRef.current);
         }
