@@ -10,12 +10,13 @@ const OpenViduVideoComponent = ({streamManager}: MyProps) => {
 
   useEffect(() => {
     if (!mounted.current) {
-
+    // componentDidMount logic
         if (streamManager && !!videoRef) {
             streamManager.addVideoElement(videoRef.current);
         }
       mounted.current = true;
     } else {
+    // componentDidUpdate logic
         if (streamManager && !!videoRef) {
             streamManager.addVideoElement(videoRef.current);
         }
