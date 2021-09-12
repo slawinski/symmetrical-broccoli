@@ -4,7 +4,7 @@ import {useState, useEffect, useRef} from 'react';
 import './App.css';
 import UserVideoComponent from './UserVideoComponent';
 
-const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
+const OPENVIDU_SERVER_URL = 'https://openvidu.slawinski.dev:443';
 const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
 
  const App = () => {
@@ -54,18 +54,6 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
             setSubscribers(subscribers)
         }
     }
-
-        /**
-     * --------------------------
-     * SERVER-SIDE RESPONSIBILITY
-     * --------------------------
-     * These methods retrieve the mandatory user token from OpenVidu Server.
-     * This behavior MUST BE IN YOUR SERVER-SIDE IN PRODUCTION (by using
-     * the API REST, openvidu-java-client or openvidu-node-client):
-     *   1) Initialize a Session in OpenVidu Server	(POST /openvidu/api/sessions)
-     *   2) Create a Connection in OpenVidu Server (POST /openvidu/api/sessions/<SESSION_ID>/connection)
-     *   3) The Connection.token must be consumed in Session.connect() method
-     */
 
     const getToken = () => {
         return createSession(mySessionId).then((sessionId) => createToken(sessionId));
