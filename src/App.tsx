@@ -2,7 +2,8 @@ import axios from 'axios';
 import { OpenVidu } from 'openvidu-browser';
 import {useState, useEffect, useRef} from 'react';
 import './App.css';
-import UserVideoComponent from './UserVideoComponent';
+import SessionLogIn from './modules/SessionLogIn';
+import MainFeed from './modules/MainFeed';
 
 const OPENVIDU_SERVER_URL = 'https://openvidu.slawinski.dev:443';
 const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
@@ -218,75 +219,11 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
              return (
             <div className="container">
                 {session === undefined ? (
-                    <div id="join">
-                        <div id="img-div">
-                            <img src="resources/images/openvidu_grey_bg_transp_cropped.png" alt="OpenVidu logo" />
-                        </div>
-                        <div id="join-dialog" className="jumbotron vertical-center">
-                            <h1> Join a video session </h1>
-                            <form className="form-group" onSubmit={joinSession}>
-                                <p>
-                                    <label>Participant: </label>
-                                    <input
-                                        className="form-control"
-                                        type="text"
-                                        id="userName"
-                                        value={myUserName}
-                                        onChange={handleChangeUserName}
-                                        required
-                                    />
-                                </p>
-                                <p>
-                                    <label> Session: </label>
-                                    <input
-                                        className="form-control"
-                                        type="text"
-                                        id="sessionId"
-                                        value={mySessionId}
-                                        onChange={handleChangeSessionId}
-                                        required
-                                    />
-                                </p>
-                                <p className="text-center">
-                                    <input className="btn btn-lg btn-success" name="commit" type="submit" value="JOIN" />
-                                </p>
-                            </form>
-                        </div>
-                    </div>
+                    <SessionLogIn {...{myUserName, mySessionId, joinSession, handleChangeUserName, handleChangeSessionId}}/>
                 ) : null}
 
                 {session !== undefined ? (
-                    <div id="session">
-                        <div id="session-header">
-                            <h1 id="session-title">{mySessionId}</h1>
-                            <input
-                                className="btn btn-large btn-danger"
-                                type="button"
-                                id="buttonLeaveSession"
-                                onClick={leaveSession}
-                                value="Leave session"
-                            />
-                        </div>
-
-                        {mainStreamManager !== undefined ? (
-                            <div id="main-video" className="col-md-6">
-                                <UserVideoComponent streamManager={mainStreamManager} />
-                            </div>
-                        ) : null}
-                        <div id="video-container" className="col-md-6">
-                            {publisher !== undefined ? (
-                                <div className="stream-container col-md-6 col-xs-6" onClick={() => handleMainVideoStream(publisher)}>
-                                    <UserVideoComponent
-                                        streamManager={publisher} />
-                                </div>
-                            ) : null}
-                            {subscribers.map((sub: any, i: any) => (
-                                <div key={i} className="stream-container col-md-6 col-xs-6" onClick={() => handleMainVideoStream(sub)}>
-                                    <UserVideoComponent streamManager={sub} />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                    <MainFeed {...{mySessionId, mainStreamManager, publisher, subscribers, leaveSession, handleMainVideoStream}} />
                 ) : null}
             </div>
         );
