@@ -216,7 +216,7 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
     }
 
              return (
-            <div className="container">
+            <div className="bg-lightGrey">
                 {session === undefined ? (
                     <SessionLogIn {...{myUserName, mySessionId, joinSession, handleChangeUserName, handleChangeSessionId}}/>
                 ) : null}

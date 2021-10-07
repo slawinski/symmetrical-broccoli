@@ -31,7 +31,7 @@ const SessionLogIn = ({myUserName, mySessionId, joinSession, handleChangeUserNam
                         required
                     />
                 </p>
-                <p className="text-center">
+                <p className="">
                     <input className="btn btn-lg btn-success" name="commit" type="submit" value="JOIN" />
                 </p>
             </form>
