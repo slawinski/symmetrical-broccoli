@@ -1,4 +1,4 @@
-import UserVideoComponent from '../UserVideoComponent';
+import UserVideoComponent from '../components/UserVideoComponent';
 
 const MainFeed = ({mySessionId, mainStreamManager, publisher, subscribers, leaveSession, handleMainVideoStream}:any) => {
   return (

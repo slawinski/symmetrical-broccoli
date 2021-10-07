@@ -1,5 +1,4 @@
 import OpenViduVideoComponent from './OvVideo';
-import './UserVideo.css';
 
 type MyProps = {
   streamManager: any

@@ -1,11 +1,10 @@
 import axios from 'axios';
 import { OpenVidu } from 'openvidu-browser';
 import {useState, useEffect, useRef} from 'react';
-import './App.css';
 import SessionLogIn from './modules/SessionLogIn';
 import MainFeed from './modules/MainFeed';
 
-const OPENVIDU_SERVER_URL = 'https://openvidu.slawinski.dev:443';
+const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
 const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
 
  const App = () => {
