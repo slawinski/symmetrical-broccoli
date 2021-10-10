@@ -3,7 +3,7 @@ import logo from '../assets/logo.svg'
 
 const SessionLogIn = ({myUserName, mySessionId, joinSession, handleChangeUserName, handleChangeSessionId}:any) => {
   return (
-    <section className="flex flex-col justify-center h-full">
+    <section className="container justify-center bg-lightGrey">
         <div id="join">
             <div id="img-div" className="mb-24">
                 <img className="m-auto" src={logo} alt="OpenVidu logo" />

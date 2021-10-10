@@ -1,10 +1,11 @@
 import {useRef, useEffect} from 'react'
 
 type MyProps = {
-  streamManager: any
+  streamManager: any,
+  className?: string,
 }
 
-const OpenViduVideoComponent = ({streamManager}: MyProps) => {
+const OpenViduVideoComponent = ({streamManager, className}: MyProps) => {
   const videoRef = useRef<HTMLVideoElement>(null)
   const mounted = useRef<boolean>(false);
 
@@ -24,7 +25,7 @@ const OpenViduVideoComponent = ({streamManager}: MyProps) => {
   });
 
   return (
-    <video autoPlay={true} ref={videoRef} />
+    <video className={className} autoPlay={true} ref={videoRef} />
   )
 }
 

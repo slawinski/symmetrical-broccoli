@@ -5,7 +5,7 @@ import cameraEnabled from '../assets/camera_enabled.svg'
 // TODO use mySessionId as title
 const MainFeed = ({mySessionId, mainStreamManager, publisher, subscribers, leaveSession, handleMainVideoStream}:any) => {
   return (
-    <div id="session">
+    <div id="session" className="container justify-between">
         <div id="session-header" className="flex justify-between">
             <button
                 className="h-14 label text-lightGrey button-enabled bg-white bg-opacity-50 px-9"
@@ -31,20 +31,25 @@ const MainFeed = ({mySessionId, mainStreamManager, publisher, subscribers, leave
         </div>
 
         {mainStreamManager !== undefined ? (
-            <div id="main-video" className="col-md-6">
-                <UserVideoComponent streamManager={mainStreamManager} />
+            <div id="main-video" className="">
+                <UserVideoComponent className="video" streamManager={mainStreamManager} />
             </div>
         ) : null}
-        <div id="video-container" className="col-md-6">
+        <div id="video-container" className="">
             {publisher !== undefined ? (
-                <div className="stream-container col-md-6 col-xs-6" onClick={() => handleMainVideoStream(publisher)}>
+                <div className="" onClick={() => handleMainVideoStream(publisher)}>
                     <UserVideoComponent
+                        className="video-circle"
+                        className2="video-circle-cropper"
                         streamManager={publisher} />
                 </div>
             ) : null}
             {subscribers.map((sub: any, i: any) => (
-                <div key={i} className="stream-container col-md-6 col-xs-6" onClick={() => handleMainVideoStream(sub)}>
-                    <UserVideoComponent streamManager={sub} />
+                <div key={i} className="" onClick={() => handleMainVideoStream(sub)}>
+                    <UserVideoComponent
+                        className="video-circle"
+                        className2="video-circle-cropper"
+                        streamManager={sub} />
                 </div>
             ))}
         </div>

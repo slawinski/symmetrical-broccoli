@@ -1,11 +1,13 @@
 import OpenViduVideoComponent from './OvVideo';
 
 type MyProps = {
-  streamManager: any
+  streamManager: any,
+  className?: any
+  className2?: any
 }
 
 
-const UserVideoComponent = ({streamManager}: MyProps) => {
+const UserVideoComponent = ({streamManager, className, className2}: MyProps) => {
     const getNicknameTag = () => {
         // Gets the nickName of the user
         return JSON.parse(streamManager.stream.connection.data).clientData;
@@ -14,8 +16,10 @@ const UserVideoComponent = ({streamManager}: MyProps) => {
     return (
         <div>
             {streamManager !== undefined ? (
-                <div className="streamcomponent">
-                    <OpenViduVideoComponent streamManager={streamManager} />
+                <div>
+                    <div className={className2}>
+                        <OpenViduVideoComponent className={className} streamManager={streamManager} />
+                    </div>
                     <div><p>{getNicknameTag()}</p></div>
                 </div>
             ) : null}
