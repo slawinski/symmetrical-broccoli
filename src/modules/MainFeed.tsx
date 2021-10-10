@@ -1,17 +1,33 @@
 import UserVideoComponent from '../components/UserVideoComponent';
+import micEnabled from '../assets/mic_enabled.svg'
+import cameraEnabled from '../assets/camera_enabled.svg'
 
+// TODO use mySessionId as title
 const MainFeed = ({mySessionId, mainStreamManager, publisher, subscribers, leaveSession, handleMainVideoStream}:any) => {
   return (
     <div id="session">
-        <div id="session-header">
-            <h1 id="session-title">{mySessionId}</h1>
-            <input
-                className="btn btn-large btn-danger"
-                type="button"
+        <div id="session-header" className="flex justify-between">
+            <button
+                className="h-14 label text-lightGrey button-enabled bg-white bg-opacity-50 px-9"
+                id="buttonToggleCamera"
+                onClick={leaveSession}
+            >
+                <img className="opacity" src={cameraEnabled} alt="toggleMute" />
+            </button>
+            <button
+                className="h-14 label text-lightGrey button-enabled bg-white bg-opacity-50 px-9"
+                id="buttonToggleMute"
+                onClick={leaveSession}
+            >
+                <img src={micEnabled} alt="toggleMute" />
+            </button>
+            <button
+                className="h-14 label text-lightGrey button-leave bg-alert py-5 px-9"
                 id="buttonLeaveSession"
                 onClick={leaveSession}
-                value="Leave session"
-            />
+            >
+                Leave call
+            </button>
         </div>
 
         {mainStreamManager !== undefined ? (

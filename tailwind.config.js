@@ -8,6 +8,7 @@ module.exports = {
       colors: {
         lightGrey: '#F8FBFC',
         grey: '#767A89',
+        alert: '#DF4241',
       }
     },
     fontFamily: {
@@ -35,6 +36,14 @@ module.exports = {
         '.button-join': {
           background: 'linear-gradient(180deg, #0F8CFF 0%, #007FF4 86.98%)',
           boxShadow: '0px 15px 30px rgba(0, 114, 219, 0.15)',
+          borderRadius: '16px',
+        },
+        '.button-enabled': {
+          boxShadow: '0px -7px 15px rgba(167, 167, 167, 0.01), 0px 15px 30px rgba(167, 167, 167, 0.08)',
+          borderRadius: '16px',
+        },
+        '.button-leave': {
+          boxShadow: '0px 15px 30px rgba(201, 35, 34, 0.15)',
           borderRadius: '16px',
         },
         '.input-field' :{
