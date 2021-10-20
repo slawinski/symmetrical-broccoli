@@ -32,23 +32,23 @@ const MainFeed = ({mySessionId, mainStreamManager, publisher, subscribers, leave
 
         {mainStreamManager !== undefined ? (
             <div id="main-video" className="">
-                <UserVideoComponent className="video" streamManager={mainStreamManager} />
+                <UserVideoComponent classVideo="video" streamManager={mainStreamManager} />
             </div>
         ) : null}
-        <div id="video-container" className="">
+        <div id="video-container" className="flex gap-2">
             {publisher !== undefined ? (
-                <div className="" onClick={() => handleMainVideoStream(publisher)}>
+                <div className="w-14" onClick={() => handleMainVideoStream(publisher)}>
                     <UserVideoComponent
-                        className="video-circle"
-                        className2="video-circle-cropper"
+                        classVideo="video-circle"
+                        classVideoCircleCropper="video-circle-cropper"
                         streamManager={publisher} />
                 </div>
             ) : null}
             {subscribers.map((sub: any, i: any) => (
-                <div key={i} className="" onClick={() => handleMainVideoStream(sub)}>
+                <div key={i} className="w-14" onClick={() => handleMainVideoStream(sub)}>
                     <UserVideoComponent
-                        className="video-circle"
-                        className2="video-circle-cropper"
+                        classVideo="video-circle"
+                        classVideoCircleCropper="video-circle-cropper"
                         streamManager={sub} />
                 </div>
             ))}

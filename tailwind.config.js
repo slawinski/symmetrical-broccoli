@@ -31,6 +31,10 @@ module.exports = {
           lineHeight: '1.375rem',
           letterSpacing: theme('letterSpacing.wide'),
         },
+        video: {
+          maxWidth: 'none',
+          height: '100%',
+        }
       })
       addComponents({
         '.button-join': {
@@ -83,11 +87,12 @@ module.exports = {
           height: '100vh',
         },
         '.video-circle-cropper': {
-          width: '100px',
-          height: '100px',
+          width: '53px',
+          height: '53px',
           position: 'relative',
           overflow: 'hidden',
           borderRadius: '50%',
+          border: '3px solid white'
         },
         'video-circle': {
           display: 'inline',

@@ -27,6 +27,7 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
             window.removeEventListener('beforeunload', onbeforeunload);
 
          }
+     // eslint-disable-next-line react-hooks/exhaustive-deps
      }, [])
 
     const onbeforeunload = (event: any) => {
