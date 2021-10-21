@@ -6,7 +6,7 @@ import cameraEnabled from '../assets/camera_enabled.svg'
 const MainFeed = ({mySessionId, mainStreamManager, publisher, subscribers, leaveSession, handleMainVideoStream}:any) => {
   return (
     <div id="session" className="container justify-between">
-        <div id="session-header" className="flex justify-between">
+        <div id="session-header" className="flex justify-between mx-5">
             <button
                 className="h-14 label text-lightGrey button-enabled bg-white bg-opacity-50 px-9"
                 id="buttonToggleCamera"
@@ -35,7 +35,7 @@ const MainFeed = ({mySessionId, mainStreamManager, publisher, subscribers, leave
                 <UserVideoComponent classVideo="video" streamManager={mainStreamManager} />
             </div>
         ) : null}
-        <div id="video-container" className="flex gap-2">
+        <div id="video-container" className="flex gap-2 overflow-x-auto pl-5">
             {publisher !== undefined ? (
                 <div className="w-14" onClick={() => handleMainVideoStream(publisher)}>
                     <UserVideoComponent
