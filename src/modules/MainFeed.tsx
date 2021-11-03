@@ -3,26 +3,26 @@ import micEnabled from '../assets/mic_enabled.svg'
 import cameraEnabled from '../assets/camera_enabled.svg'
 
 // TODO use mySessionId as title
-const MainFeed = ({mySessionId, mainStreamManager, publisher, subscribers, leaveSession, handleMainVideoStream}:any) => {
+const MainFeed = ({mySessionId, mainStreamManager, publisher, subscribers, leaveSession, handleMainVideoStream, toggleVideo, toggleMute}:any) => {
   return (
     <div id="session" className="container justify-between">
         <div id="session-header" className="flex justify-between mx-5">
             <button
-                className="h-14 label text-lightGrey button-enabled bg-white bg-opacity-50 px-9"
+                className="label text-lightGrey button-enabled bg-white bg-opacity-50 px-9"
                 id="buttonToggleCamera"
-                onClick={leaveSession}
+                onClick={toggleVideo}
             >
                 <img className="opacity" src={cameraEnabled} alt="toggleMute" />
             </button>
             <button
-                className="h-14 label text-lightGrey button-enabled bg-white bg-opacity-50 px-9"
+                className="label text-lightGrey button-enabled bg-white bg-opacity-50 px-9"
                 id="buttonToggleMute"
-                onClick={leaveSession}
+                onClick={toggleMute}
             >
                 <img src={micEnabled} alt="toggleMute" />
             </button>
             <button
-                className="h-14 label text-lightGrey button-leave bg-alert py-5 px-9"
+                className="label text-lightGrey button-leave bg-alert py-5 px-9"
                 id="buttonLeaveSession"
                 onClick={leaveSession}
             >

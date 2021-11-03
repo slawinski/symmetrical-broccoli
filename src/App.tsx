@@ -16,6 +16,8 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
      const [publisher, setPublisher] = useState<any>(undefined)
      const [subscribers, setSubscribers] = useState<string[]>([])
      const mounted = useRef<boolean>(false);
+     const [isVideo, setIsVideo] = useState<boolean>(true)
+     const [isMute, setIsMute] = useState<boolean>(true)
 
      useEffect(() => {
          if (!mounted.current) {
@@ -139,6 +141,15 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
         setSubscribers([])
     }
 
+    const toggleMute = () => {
+        publisher.publishAudio(!isMute)
+        setIsMute(!isMute)
+    }
+    const toggleVideo = () => {
+        publisher.publishVideo(!isVideo)
+        setIsVideo(!isVideo)
+    }
+
     const joinSession = () => {
         // --- 1) Get an OpenVidu object ---
         setOV(new OpenVidu());
@@ -217,15 +228,15 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
     }
 
              return (
-            <div className="">
+            <>
                 {session === undefined ? (
                     <SessionLogIn {...{myUserName, mySessionId, joinSession, handleChangeUserName, handleChangeSessionId}}/>
                 ) : null}
 
                 {session !== undefined ? (
-                    <MainFeed {...{mySessionId, mainStreamManager, publisher, subscribers, leaveSession, handleMainVideoStream}} />
+                    <MainFeed {...{mySessionId, mainStreamManager, publisher, subscribers, leaveSession, handleMainVideoStream, toggleVideo, toggleMute}} />
                 ) : null}
-            </div>
+            </>
         );
  }
 
