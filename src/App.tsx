@@ -18,8 +18,8 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
      const [subscribers, setSubscribers] = useState<string[]>([])
      const mounted = useRef<boolean>(false);
      const [isVideo, setIsVideo] = useState<boolean>(true)
-     const [isMute, setIsMute] = useState<boolean>(true)
-     const [messages, setMessages] = useState<any>([{name: 'asdf', message: 'asdf', origin: 'own'}])
+     const [isMute, setIsMute] = useState<boolean>(false)
+     const [messages, setMessages] = useState<any>([])
 
      useEffect(() => {
          if (!mounted.current) {
@@ -158,19 +158,20 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
 
     const sendMessage = (event:any) => {
         event.preventDefault();
-                session.signal({
-                    data: JSON.stringify(myMessage),  // Any string (optional)
-                    to: [],                     // Array of Connection objects (optional. Broadcast to everyone if empty)
-                    type: 'my-chat'             // The type of message (optional)
-                })
-                .then(() => {
-                    console.log('Message successfully sent');
-                })
-                .catch((error:any) => {
-                    console.error(error);
-                });
+        if (myMessage === '') return
+        session.signal({
+            data: myMessage,  // Any string (optional)
+            to: [],                     // Array of Connection objects (optional. Broadcast to everyone if empty)
+            type: 'my-chat'             // The type of message (optional)
+        })
+        .then(() => {
+            console.log('Message successfully sent');
+        })
+        .catch((error:any) => {
+            console.error(error);
+        });
         setMyMessage('')
-            }
+    }
 
     const joinSession = () => {
         // --- 1) Get an OpenVidu object ---
@@ -187,18 +188,19 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
             // receive chat messages
             session.on('signal', (event:any) => {
                 if (event.from.connectionId === session.connection.connectionId) {
-                setMessages(messages.unshift({
-                    name: JSON.parse(event.from.data).clientData,
-                    message: event.data,
-                    origin: 'own',
-                }));
+                    setMessages((prevState: any) => [{
+                        name: JSON.parse(event.from.data).clientData,
+                        message: event.data,
+                        origin: 'own',
+                    }, ...prevState]);
                 } else {
-                setMessages(messages.unshift({
-                    name: JSON.parse(event.from.data).clientData,
-                    message: event.data,
-                    origin: 'foreign',
-                }));
+                setMessages((prevState: any) => [{
+                        name: JSON.parse(event.from.data).clientData,
+                        message: event.data,
+                        origin: 'foreign',
+                    }, ...prevState]);
                 }
+                console.log(messages);
             });
 
             session.on('streamCreated', (event: any) => {
@@ -278,7 +280,7 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
                 ) : null}
 
                 {session !== undefined ? (
-                    <MainFeed {...{mySessionId, mainStreamManager, publisher, subscribers, leaveSession, handleMainVideoStream, toggleVideo, toggleMute, isVideo, isMute, myMessage, handleChangeMessage, sendMessage}} />
+                    <MainFeed {...{mySessionId, mainStreamManager, publisher, subscribers, leaveSession, handleMainVideoStream, toggleVideo, toggleMute, isVideo, isMute, myMessage, handleChangeMessage, sendMessage, messages}} />
                 ) : null}
             </>
         );

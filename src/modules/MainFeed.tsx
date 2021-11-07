@@ -4,9 +4,10 @@ import micDisabled from '../assets/mic_disabled.svg'
 import cameraEnabled from '../assets/camera_enabled.svg'
 import cameraDisabled from '../assets/camera_disabled.svg'
 import ChatInput from '../components/ChatInput';
+import MessageFeed from '../components/MessageFeed';
 
 // TODO use mySessionId as title
-const MainFeed = ({mySessionId, mainStreamManager, publisher, subscribers, leaveSession, handleMainVideoStream, toggleVideo, toggleMute, isVideo, isMute, myMessage, sendMessage, handleChangeMessage}:any) => {
+const MainFeed = ({mySessionId, mainStreamManager, publisher, subscribers, leaveSession, handleMainVideoStream, toggleVideo, toggleMute, isVideo, isMute, myMessage, sendMessage, handleChangeMessage, messages}:any) => {
   return (
     <div id="session" className="container gap-4 justify-between">
         <div id="session-header" className="flex justify-between px-5">
@@ -38,6 +39,9 @@ const MainFeed = ({mySessionId, mainStreamManager, publisher, subscribers, leave
                 <UserVideoComponent classVideo="video" streamManager={mainStreamManager} />
             </div>
         ) : null}
+        <div id="message-feed" className="px-5">
+            <MessageFeed messages={messages}/>
+        </div>
         <div id="video-container" className="flex gap-2 overflow-x-auto pl-5">
             {publisher !== undefined ? (
                 <div
@@ -62,7 +66,7 @@ const MainFeed = ({mySessionId, mainStreamManager, publisher, subscribers, leave
                 </div>
             ))}
         </div>
-        <div className="px-5">
+        <div id="message-input" className="px-5">
             <ChatInput {...{myMessage, sendMessage, handleChangeMessage}} />
         </div>
     </div>
