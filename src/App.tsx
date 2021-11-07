@@ -11,6 +11,7 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
      const [OV, setOV] = useState<any>(() => new OpenVidu())
      const [mySessionId, setMySessionId] = useState<string>('HTD')
      const [myUserName, setMyUserName] = useState<string>('Participant' + Math.floor(Math.random() * 100))
+     const [myMessage, setMyMessage] = useState<string>('')
      const [session, setSession] = useState<any>(undefined)
      const [mainStreamManager, setMainStreamManager] = useState<any>(undefined)
      const [publisher, setPublisher] = useState<any>(undefined)
@@ -18,6 +19,7 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
      const mounted = useRef<boolean>(false);
      const [isVideo, setIsVideo] = useState<boolean>(true)
      const [isMute, setIsMute] = useState<boolean>(true)
+     const [messages, setMessages] = useState<any>([{name: 'asdf', message: 'asdf', origin: 'own'}])
 
      useEffect(() => {
          if (!mounted.current) {
@@ -42,6 +44,10 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
 
     const handleChangeUserName = (e: any) => {
         setMyUserName(e.target.value)
+    }
+
+    const handleChangeMessage = (e: any) => {
+        setMyMessage(e.target.value)
     }
 
     const handleMainVideoStream = (stream: any) => {
@@ -150,6 +156,22 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
         setIsVideo(!isVideo)
     }
 
+    const sendMessage = (event:any) => {
+        event.preventDefault();
+                session.signal({
+                    data: JSON.stringify(myMessage),  // Any string (optional)
+                    to: [],                     // Array of Connection objects (optional. Broadcast to everyone if empty)
+                    type: 'my-chat'             // The type of message (optional)
+                })
+                .then(() => {
+                    console.log('Message successfully sent');
+                })
+                .catch((error:any) => {
+                    console.error(error);
+                });
+        setMyMessage('')
+            }
+
     const joinSession = () => {
         // --- 1) Get an OpenVidu object ---
         setOV(new OpenVidu());
@@ -157,9 +179,28 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
         // --- 2) Init a session ---
         setSession(OV.initSession())
 
+
+
         // --- 3) Specify the actions when events take place in the session ---
         // On every new Stream received...
         setSession((session: any) => {
+            // receive chat messages
+            session.on('signal', (event:any) => {
+                if (event.from.connectionId === session.connection.connectionId) {
+                setMessages(messages.unshift({
+                    name: JSON.parse(event.from.data).clientData,
+                    message: event.data,
+                    origin: 'own',
+                }));
+                } else {
+                setMessages(messages.unshift({
+                    name: JSON.parse(event.from.data).clientData,
+                    message: event.data,
+                    origin: 'foreign',
+                }));
+                }
+            });
+
             session.on('streamCreated', (event: any) => {
                 // Subscribe to the Stream to receive it. Second parameter is undefined
                 // so OpenVidu doesn't create an HTML video by its own
@@ -218,11 +259,14 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
                         // Set the main video in the page to display our webcam and store our Publisher
                         setMainStreamManager(publisher)
                         setPublisher(publisher)
+
+
                     })
                     .catch((error: any) => {
                         console.log('There was an error connecting to the session:', error.code, error.message);
                     });
             });
+
             return session
         })
     }
@@ -234,7 +278,7 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
                 ) : null}
 
                 {session !== undefined ? (
-                    <MainFeed {...{mySessionId, mainStreamManager, publisher, subscribers, leaveSession, handleMainVideoStream, toggleVideo, toggleMute}} />
+                    <MainFeed {...{mySessionId, mainStreamManager, publisher, subscribers, leaveSession, handleMainVideoStream, toggleVideo, toggleMute, isVideo, isMute, myMessage, handleChangeMessage, sendMessage}} />
                 ) : null}
             </>
         );

@@ -1,7 +1,6 @@
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
-  mode: 'jit',
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -10,6 +9,7 @@ module.exports = {
         lightGrey: '#F8FBFC',
         grey: '#767A89',
         alert: '#DF4241',
+        darkNavy: '#17234D',
       }
     },
     fontFamily: {
@@ -75,7 +75,7 @@ module.exports = {
           minHeight: '100%',
           minWidth: '100%',
           position: 'fixed',
-          transform: 'translate(-50%, -50%)',
+          transform: 'translate(-50%, -50%) rotateY(180deg)',
           top: '50%',
           maxWidth: 'none',
           zIndex: '-9999',
