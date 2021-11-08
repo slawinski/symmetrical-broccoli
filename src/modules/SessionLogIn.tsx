@@ -19,6 +19,7 @@ const SessionLogIn = ({myUserName, mySessionId, joinSession, handleChangeUserNam
                         value={myUserName}
                         onChange={handleChangeUserName}
                         required
+                        placeholder="Your name"
                     />
                     {/* TODO add label for accessibility */}
                     <input
@@ -28,6 +29,7 @@ const SessionLogIn = ({myUserName, mySessionId, joinSession, handleChangeUserNam
                         value={mySessionId}
                         onChange={handleChangeSessionId}
                         required
+                        placeholder="You better type HTD here"
                     />
                     <button className="label text-lightGrey button-join py-5 w-full" type="submit">Join session</button>
                 </form>

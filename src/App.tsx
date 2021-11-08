@@ -4,13 +4,13 @@ import {useState, useEffect, useRef} from 'react';
 import SessionLogIn from './modules/SessionLogIn';
 import MainFeed from './modules/MainFeed';
 
-const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
+const OPENVIDU_SERVER_URL = 'https://openvidu.slawinski.dev:443';
 const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
 
  const App = () => {
      const [OV, setOV] = useState<any>(() => new OpenVidu())
      const [mySessionId, setMySessionId] = useState<string>('HTD')
-     const [myUserName, setMyUserName] = useState<string>('Participant' + Math.floor(Math.random() * 100))
+     const [myUserName, setMyUserName] = useState<string>('')
      const [myMessage, setMyMessage] = useState<string>('')
      const [session, setSession] = useState<any>(undefined)
      const [mainStreamManager, setMainStreamManager] = useState<any>(undefined)
