@@ -4,8 +4,7 @@ import {useState, useEffect, useRef} from 'react';
 import SessionLogIn from './modules/SessionLogIn';
 import MainFeed from './modules/MainFeed';
 
-const OPENVIDU_SERVER_URL = 'https://openvidu.slawinski.dev:443';
-const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
+const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
 
  const App = () => {
      const [OV, setOV] = useState<any>(() => new OpenVidu())
@@ -74,7 +73,7 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
         axios
             .post(OPENVIDU_SERVER_URL + '/openvidu/api/sessions', data, {
                 headers: {
-                    Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET),
+                    Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + process.env.REACT_APP_OPENVIDU_SERVER_SECRET),
                     'Content-Type': 'application/json',
                 },
             })
@@ -115,7 +114,7 @@ const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
             axios
                 .post(OPENVIDU_SERVER_URL + "/openvidu/api/sessions/" + sessionId + "/connection", data, {
                     headers: {
-                        Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET),
+                        Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + process.env.REACT_APP_OPENVIDU_SERVER_SECRET),
                         'Content-Type': 'application/json',
                     },
                 })
