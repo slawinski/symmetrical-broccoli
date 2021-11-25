@@ -12,7 +12,6 @@ const UserVideoComponent = ({streamManager, classVideo, classVideoCircleCropper}
         // Gets the nickName of the user
         return JSON.parse(streamManager.stream.connection.data).clientData;
     }
-    console.log(streamManager?.openvidu?.role);
 
     const ThumbCaption = (): any => {
         if (classVideo === 'video') {

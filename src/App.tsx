@@ -1,14 +1,19 @@
+import React from 'react';
 import axios from 'axios';
 import { OpenVidu } from 'openvidu-browser';
 import {useState, useEffect, useRef} from 'react';
 import SessionLogIn from './modules/SessionLogIn';
 import MainFeed from './modules/MainFeed';
 
-const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
+type MessagesType = {
+    name: string;
+    message: string;
+    origin: 'foreign' | 'own'
+}
 
  const App = () => {
      const [OV, setOV] = useState<any>(() => new OpenVidu())
-     const [mySessionId, setMySessionId] = useState<string>('HTD')
+     const [mySessionId, setMySessionId] = useState<string>('Test session')
      const [myUserName, setMyUserName] = useState<string>('')
      const [myMessage, setMyMessage] = useState<string>('')
      const [session, setSession] = useState<any>(undefined)
@@ -18,7 +23,7 @@ const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
      const mounted = useRef<boolean>(false);
      const [isVideo, setIsVideo] = useState<boolean>(true)
      const [isMute, setIsMute] = useState<boolean>(false)
-     const [messages, setMessages] = useState<any>([])
+     const [messages, setMessages] = useState<MessagesType[]>([])
 
      useEffect(() => {
          if (!mounted.current) {
@@ -33,19 +38,19 @@ const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
      // eslint-disable-next-line react-hooks/exhaustive-deps
      }, [])
 
-    const onbeforeunload = (event: any) => {
+    const onbeforeunload = () => {
         leaveSession();
     }
 
-    const handleChangeSessionId = (e: any) => {
+    const handleChangeSessionId = (e: React.ChangeEvent<HTMLInputElement>) => {
         setMySessionId(e.target.value)
     }
 
-    const handleChangeUserName = (e: any) => {
+    const handleChangeUserName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setMyUserName(e.target.value)
     }
 
-    const handleChangeMessage = (e: any) => {
+    const handleChangeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
         setMyMessage(e.target.value)
     }
 
@@ -71,7 +76,7 @@ const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
     return new Promise((resolve, reject) => {
         var data = JSON.stringify({ customSessionId: sessionId });
         axios
-            .post(OPENVIDU_SERVER_URL + '/openvidu/api/sessions', data, {
+            .post(process.env.REACT_APP_OPENVIDU_SERVER_URL + '/openvidu/api/sessions', data, {
                 headers: {
                     Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + process.env.REACT_APP_OPENVIDU_SERVER_SECRET),
                     'Content-Type': 'application/json',
@@ -89,19 +94,19 @@ const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
                     console.log(error);
                     console.warn(
                         'No connection to OpenVidu Server. This may be a certificate error at ' +
-                        OPENVIDU_SERVER_URL,
+                        process.env.REACT_APP_OPENVIDU_SERVER_URL,
                     );
                     if (
                         window.confirm(
                             'No connection to OpenVidu Server. This may be a certificate error at "' +
-                            OPENVIDU_SERVER_URL +
+                            process.env.REACT_APP_OPENVIDU_SERVER_URL +
                             '"\n\nClick OK to navigate and accept it. ' +
                             'If no certificate warning is shown, then check that your OpenVidu Server is up and running at "' +
-                            OPENVIDU_SERVER_URL +
+                            process.env.REACT_APP_OPENVIDU_SERVER_URL +
                             '"',
                         )
                     ) {
-                        window.location.assign(OPENVIDU_SERVER_URL + '/accept-certificate');
+                        window.location.assign(process.env.REACT_APP_OPENVIDU_SERVER_URL + '/accept-certificate');
                     }
                 }
             });
@@ -112,7 +117,7 @@ const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
         return new Promise((resolve, reject) => {
             var data = {};
             axios
-                .post(OPENVIDU_SERVER_URL + "/openvidu/api/sessions/" + sessionId + "/connection", data, {
+                .post(process.env.REACT_APP_OPENVIDU_SERVER_URL + "/openvidu/api/sessions/" + sessionId + "/connection", data, {
                     headers: {
                         Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + process.env.REACT_APP_OPENVIDU_SERVER_SECRET),
                         'Content-Type': 'application/json',
@@ -138,8 +143,8 @@ const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
 
         // Empty all properties...
         setOV(null)
-        setMySessionId('HTD')
-        setMyUserName('Participant' + Math.floor(Math.random() * 100))
+        setMySessionId('Test session')
+        setMyUserName('')
         setSession(undefined)
         setMainStreamManager(undefined)
         setPublisher(undefined)
@@ -155,7 +160,7 @@ const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
         setIsVideo(!isVideo)
     }
 
-    const sendMessage = (event:any) => {
+    const sendMessage = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (myMessage === '') return
         session.signal({
@@ -187,19 +192,18 @@ const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
             // receive chat messages
             session.on('signal', (event:any) => {
                 if (event.from.connectionId === session.connection.connectionId) {
-                    setMessages((prevState: any) => [{
+                    setMessages((prevState) => [{
                         name: JSON.parse(event.from.data).clientData,
                         message: event.data,
                         origin: 'own',
                     }, ...prevState]);
                 } else {
-                setMessages((prevState: any) => [{
+                setMessages((prevState) => [{
                         name: JSON.parse(event.from.data).clientData,
                         message: event.data,
                         origin: 'foreign',
                     }, ...prevState]);
                 }
-                console.log(messages);
             });
 
             session.on('streamCreated', (event: any) => {
