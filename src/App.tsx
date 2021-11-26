@@ -5,15 +5,9 @@ import {useState, useEffect, useRef} from 'react';
 import SessionLogIn from './modules/SessionLogIn';
 import MainFeed from './modules/MainFeed';
 
-type MessagesType = {
-    name: string;
-    message: string;
-    origin: 'foreign' | 'own'
-}
-
  const App = () => {
      const [OV, setOV] = useState<any>(() => new OpenVidu())
-     const [mySessionId, setMySessionId] = useState<string>('Test session')
+     const [mySessionId, setMySessionId] = useState<string>('Test')
      const [myUserName, setMyUserName] = useState<string>('')
      const [myMessage, setMyMessage] = useState<string>('')
      const [session, setSession] = useState<any>(undefined)
@@ -23,7 +17,7 @@ type MessagesType = {
      const mounted = useRef<boolean>(false);
      const [isVideo, setIsVideo] = useState<boolean>(true)
      const [isMute, setIsMute] = useState<boolean>(false)
-     const [messages, setMessages] = useState<MessagesType[]>([])
+     const [messages, setMessages] = useState<IMessage[]>([])
 
      useEffect(() => {
          if (!mounted.current) {
@@ -143,7 +137,7 @@ type MessagesType = {
 
         // Empty all properties...
         setOV(null)
-        setMySessionId('Test session')
+        setMySessionId('Test')
         setMyUserName('')
         setSession(undefined)
         setMainStreamManager(undefined)
@@ -160,8 +154,8 @@ type MessagesType = {
         setIsVideo(!isVideo)
     }
 
-    const sendMessage = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    const sendMessage = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         if (myMessage === '') return
         session.signal({
             data: myMessage,  // Any string (optional)

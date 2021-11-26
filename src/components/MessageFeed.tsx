@@ -8,7 +8,7 @@ const MessageFeed = ({messages}:any) => {
   }
   return (
     <div className="flex flex-col gap-2">
-    {messages?.slice(0, 3).reverse().map((msg: any, index:any) =>
+    {messages?.slice(0, 3).reverse().map((msg: IMessage, index: number) =>
       (<div key={index} className={`${fadeOut(index)}flex gap-5 caption text-darkNavy py-3 px-4 bg-white rounded-full max-w-max`}>
         <p className="max-w-[80px] overflow-ellipsis overflow-hidden whitespace-nowrap"><strong>{msg.name}&nbsp;</strong></p>
         <p className="break-all">{msg.message}</p>

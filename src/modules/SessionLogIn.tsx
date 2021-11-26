@@ -1,7 +1,7 @@
 import React from 'react'
 import logo from '../assets/logo.svg'
 
-const SessionLogIn = ({myUserName, mySessionId, joinSession, handleChangeUserName, handleChangeSessionId}:any) => {
+const SessionLogIn = ({myUserName, mySessionId, joinSession, handleChangeUserName, handleChangeSessionId}: ISessionLoginProps) => {
   return (
     <section className="container justify-center bg-lightGrey">
         <div id="join" className="mx-5">

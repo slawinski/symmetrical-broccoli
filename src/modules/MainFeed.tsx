@@ -7,7 +7,7 @@ import ChatInput from '../components/ChatInput';
 import MessageFeed from '../components/MessageFeed';
 
 // TODO use mySessionId as title
-const MainFeed = ({mySessionId, mainStreamManager, publisher, subscribers, leaveSession, handleMainVideoStream, toggleVideo, toggleMute, isVideo, isMute, myMessage, sendMessage, handleChangeMessage, messages}:any) => {
+const MainFeed = ({mySessionId, mainStreamManager, publisher, subscribers, leaveSession, handleMainVideoStream, toggleVideo, toggleMute, isVideo, isMute, myMessage, sendMessage, handleChangeMessage, messages}: IMainFeed) => {
   return (
     <div id="session" className="container gap-4 justify-between">
         <div id="session-header" className="flex justify-between px-5">
@@ -56,7 +56,7 @@ const MainFeed = ({mySessionId, mainStreamManager, publisher, subscribers, leave
                     />
                 </div>
             ) : null}
-            {subscribers.map((sub: any, i: any) => (
+            {subscribers.map((sub: any, i: number) => (
                 <div key={i} className="w-14" onClick={() => handleMainVideoStream(sub)}>
                     <UserVideoComponent
                         classVideo="video-circle"

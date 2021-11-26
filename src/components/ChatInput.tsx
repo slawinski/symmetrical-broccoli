@@ -1,4 +1,4 @@
-const ChatInput = ({myMessage, sendMessage, handleChangeMessage}:any) => {
+const ChatInput = ({myMessage, sendMessage, handleChangeMessage}: IChatInput) => {
 
   return (
     <form onSubmit={sendMessage}>
