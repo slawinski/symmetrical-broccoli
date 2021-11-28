@@ -11,17 +11,17 @@ module.exports = {
         grey: '#767A89',
         alert: '#DF4241',
         darkNavy: '#17234D',
-      }
+      },
     },
     fontFamily: {
       inter: ['Inter', 'sans-serif'],
-    }
+    },
   },
   variants: {
     extend: {},
   },
   plugins: [
-    plugin(function ({addComponents, theme, addBase, addUtilities}) {
+    plugin(function ({ addComponents, theme, addBase, addUtilities }) {
       addBase({
         h1: {
           fontFamily: theme('fontFamily.inter'),
@@ -36,8 +36,8 @@ module.exports = {
         video: {
           maxWidth: 'none',
           height: '100%',
-        }
-      })
+        },
+      });
       addComponents({
         '.button-join': {
           background: 'linear-gradient(180deg, #0F8CFF 0%, #007FF4 86.98%)',
@@ -45,15 +45,17 @@ module.exports = {
           borderRadius: '16px',
         },
         '.button-enabled': {
-          boxShadow: '0px -7px 15px rgba(167, 167, 167, 0.01), 0px 15px 30px rgba(167, 167, 167, 0.08)',
+          boxShadow:
+            '0px -7px 15px rgba(167, 167, 167, 0.01), 0px 15px 30px rgba(167, 167, 167, 0.08)',
           borderRadius: '16px',
         },
         '.button-leave': {
           boxShadow: '0px 15px 30px rgba(201, 35, 34, 0.15)',
           borderRadius: '16px',
         },
-        '.input-field' :{
-          boxShadow: '0px -7px 15px rgba(167, 167, 167, 0.01), 0px 15px 30px rgba(167, 167, 167, 0.08)',
+        '.input-field': {
+          boxShadow:
+            '0px -7px 15px rgba(167, 167, 167, 0.01), 0px 15px 30px rgba(167, 167, 167, 0.08)',
           borderRadius: '16px',
         },
         '.label': {
@@ -95,7 +97,7 @@ module.exports = {
           position: 'relative',
           overflow: 'hidden',
           borderRadius: '50%',
-          border: '3px solid white'
+          border: '3px solid white',
         },
         'video-circle': {
           display: 'inline',
@@ -103,7 +105,7 @@ module.exports = {
           height: '100%',
           width: 'auto',
         },
-      })
+      });
     }),
   ],
-}
+};
