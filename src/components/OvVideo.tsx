@@ -24,7 +24,21 @@ const OpenViduVideoComponent = ({ streamManager, classVideo }: MyProps) => {
     }
   });
 
-  return <video className={classVideo} autoPlay={true} ref={videoRef} />;
+  const getMirrorImage = () => {
+    if (classVideo === 'video-circle' && streamManager?.openvidu?.role === 'PUBLISHER') {
+      return 'mirror-image';
+    }
+    if (classVideo === 'video' && streamManager?.openvidu?.role === 'PUBLISHER') {
+      return 'mirror-image-translate';
+    }
+    if (classVideo === 'video') {
+      return 'translate';
+    }
+  };
+
+  return (
+    <video className={`${classVideo || ''} ${getMirrorImage()}`} autoPlay={true} ref={videoRef} />
+  );
 };
 
 export default OpenViduVideoComponent;

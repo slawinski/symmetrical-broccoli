@@ -84,7 +84,6 @@ module.exports = {
           minHeight: '100%',
           minWidth: '100%',
           position: 'fixed',
-          transform: 'translate(-50%, -50%) rotateY(180deg)',
           top: '50%',
           maxWidth: 'none',
           zIndex: '-9999',
@@ -113,6 +112,16 @@ module.exports = {
           // objectFit: 'cover',
           // height: '100%',
           // width: '100%',
+        },
+        // TODO this needs to be refactored
+        '.mirror-image': {
+          transform: 'rotateY(180deg)',
+        },
+        '.mirror-image-translate': {
+          transform: 'translate(-50%, -50%) rotateY(180deg)',
+        },
+        '.translate': {
+          transform: 'translate(-50%, -50%)',
         },
       });
     }),
