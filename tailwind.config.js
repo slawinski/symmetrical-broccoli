@@ -23,6 +23,9 @@ module.exports = {
   plugins: [
     plugin(function ({ addComponents, theme, addBase, addUtilities }) {
       addBase({
+        html: {
+          height: '100vh',
+        },
         h1: {
           fontFamily: theme('fontFamily.inter'),
         },
@@ -91,7 +94,8 @@ module.exports = {
           flexDirection: 'column',
           margin: '0 auto',
           padding: '18px 0',
-          height: '100vh',
+          height: '100%',
+          position: 'fixed',
           overflow: 'hidden',
         },
         '.video-circle-cropper': {
