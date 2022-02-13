@@ -7,7 +7,7 @@ import { IMessage } from './types';
 
 const App = () => {
   const [OV, setOV] = useState<any>(() => new OpenVidu());
-  const [mySessionId, setMySessionId] = useState<string>('Test');
+  const [mySessionId, setMySessionId] = useState<string>('Beesafe');
   const [myUserName, setMyUserName] = useState<string>('');
   const [myMessage, setMyMessage] = useState<string>('');
   const [session, setSession] = useState<any>(undefined);
@@ -30,7 +30,7 @@ const App = () => {
 
     // Empty all properties...
     setOV(null);
-    setMySessionId('Test');
+    setMySessionId('Beesafe');
     setMyUserName('');
     setSession(undefined);
     setMainStreamManager(undefined);
@@ -252,7 +252,7 @@ const App = () => {
             const publisher = OV.initPublisher(undefined, {
               audioSource: undefined, // The source of audio. If undefined default microphone
               videoSource: undefined, // The source of video. If undefined default webcam
-              publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+              publishAudio: false, // Whether you want to start publishing with your audio unmuted or not
               publishVideo: true, // Whether you want to start publishing with your video enabled or not
               resolution: '640x480', // The resolution of your video
               frameRate: 30, // The frame rate of your video

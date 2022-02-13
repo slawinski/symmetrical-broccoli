@@ -26,25 +26,21 @@ const MainFeed = ({
 }: IMainFeed) => {
   return (
     <div id="session" className="container gap-4 justify-between">
-      <div id="session-header" className="flex justify-between px-5">
+      <div id="session-header" className="flex justify-between gap-2 px-5">
         <button
-          className="label text-lightGrey button-enabled bg-white bg-opacity-50 px-9"
+          className="label text-lightGrey button-enabled bg-white bg-opacity-50 py-5"
           id="buttonToggleCamera"
           onClick={toggleVideo}>
-          <img
-            className="opacity"
-            src={isVideo ? cameraEnabled : cameraDisabled}
-            alt="toggleMute"
-          />
+          <img className="m-auto" src={isVideo ? cameraEnabled : cameraDisabled} alt="toggleMute" />
         </button>
         <button
-          className="label text-lightGrey button-enabled bg-white bg-opacity-50 px-9"
+          className="label text-lightGrey button-enabled bg-white bg-opacity-50 py-5"
           id="buttonToggleMute"
           onClick={toggleMute}>
-          <img src={isMute ? micEnabled : micDisabled} alt="toggleMute" />
+          <img className="m-auto" src={isMute ? micEnabled : micDisabled} alt="toggleMute" />
         </button>
         <button
-          className="label text-lightGrey button-leave bg-alert py-5 px-9"
+          className="label text-lightGrey button-leave bg-alert py-5"
           id="buttonLeaveSession"
           onClick={leaveSession}>
           Leave call
@@ -62,7 +58,7 @@ const MainFeed = ({
       <div id="video-container" className="flex gap-2 overflow-x-auto pl-5">
         {publisher !== undefined ? (
           <div
-            // style={{transform: 'rotateY(180deg)'}}
+            // style={{ transform: 'rotateY(180deg)' }}
             className="w-14"
             onClick={() => handleMainVideoStream(publisher)}>
             <UserVideoComponent

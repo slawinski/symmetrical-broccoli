@@ -34,8 +34,9 @@ module.exports = {
           letterSpacing: theme('letterSpacing.wide'),
         },
         video: {
-          maxWidth: 'none',
+          objectFit: 'cover',
           height: '100%',
+          width: '100%',
         },
       });
       addComponents({
@@ -48,10 +49,12 @@ module.exports = {
           boxShadow:
             '0px -7px 15px rgba(167, 167, 167, 0.01), 0px 15px 30px rgba(167, 167, 167, 0.08)',
           borderRadius: '16px',
+          minWidth: '80px',
         },
         '.button-leave': {
           boxShadow: '0px 15px 30px rgba(201, 35, 34, 0.15)',
           borderRadius: '16px',
+          flexGrow: 2,
         },
         '.input-field': {
           boxShadow:
@@ -98,12 +101,14 @@ module.exports = {
           overflow: 'hidden',
           borderRadius: '50%',
           border: '3px solid white',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         },
-        'video-circle': {
-          display: 'inline',
-          margin: '0 auto',
-          height: '100%',
-          width: 'auto',
+        '.video-circle': {
+          // objectFit: 'cover',
+          // height: '100%',
+          // width: '100%',
         },
       });
     }),

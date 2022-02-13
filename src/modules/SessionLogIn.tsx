@@ -35,7 +35,7 @@ const SessionLogIn = ({
               value={mySessionId}
               onChange={handleChangeSessionId}
               required
-              placeholder="You better type HTD here"
+              placeholder="You better type Beesafe here"
             />
             <button className="label text-lightGrey button-join py-5 w-full" type="submit">
               Join session
