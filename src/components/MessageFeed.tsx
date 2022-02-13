@@ -1,4 +1,4 @@
-import React from 'react';
+import { IMessage } from '../types';
 
 const MessageFeed = ({ messages }: any) => {
   const fadeOut = (key: any) => {
@@ -16,8 +16,7 @@ const MessageFeed = ({ messages }: any) => {
             key={index}
             className={`${fadeOut(
               index,
-            )}flex gap-5 caption text-darkNavy py-3 px-4 bg-white rounded-full max-w-max`}
-          >
+            )}flex gap-5 caption text-darkNavy py-3 px-4 bg-white rounded-full max-w-max`}>
             <p className="max-w-[80px] overflow-ellipsis overflow-hidden whitespace-nowrap">
               <strong>{msg.name}&nbsp;</strong>
             </p>

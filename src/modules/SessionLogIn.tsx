@@ -1,5 +1,5 @@
-import React from 'react';
 import logo from '../assets/logo.svg';
+import { ISessionLoginProps } from '../types';
 
 const SessionLogIn = ({
   myUserName,

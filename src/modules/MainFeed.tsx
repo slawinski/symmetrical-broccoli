@@ -5,6 +5,7 @@ import cameraEnabled from '../assets/camera_enabled.svg';
 import cameraDisabled from '../assets/camera_disabled.svg';
 import ChatInput from '../components/ChatInput';
 import MessageFeed from '../components/MessageFeed';
+import { IMainFeed } from '../types';
 
 // TODO use mySessionId as title
 const MainFeed = ({
@@ -29,8 +30,7 @@ const MainFeed = ({
         <button
           className="label text-lightGrey button-enabled bg-white bg-opacity-50 px-9"
           id="buttonToggleCamera"
-          onClick={toggleVideo}
-        >
+          onClick={toggleVideo}>
           <img
             className="opacity"
             src={isVideo ? cameraEnabled : cameraDisabled}
@@ -40,15 +40,13 @@ const MainFeed = ({
         <button
           className="label text-lightGrey button-enabled bg-white bg-opacity-50 px-9"
           id="buttonToggleMute"
-          onClick={toggleMute}
-        >
+          onClick={toggleMute}>
           <img src={isMute ? micEnabled : micDisabled} alt="toggleMute" />
         </button>
         <button
           className="label text-lightGrey button-leave bg-alert py-5 px-9"
           id="buttonLeaveSession"
-          onClick={leaveSession}
-        >
+          onClick={leaveSession}>
           Leave call
         </button>
       </div>
@@ -66,8 +64,7 @@ const MainFeed = ({
           <div
             // style={{transform: 'rotateY(180deg)'}}
             className="w-14"
-            onClick={() => handleMainVideoStream(publisher)}
-          >
+            onClick={() => handleMainVideoStream(publisher)}>
             <UserVideoComponent
               classVideo="video-circle"
               classVideoCircleCropper="video-circle-cropper"

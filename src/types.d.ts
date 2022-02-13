@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface IMessage {
   name: string;
   message: string;

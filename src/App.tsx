@@ -1,9 +1,9 @@
-import React from 'react';
 import axios from 'axios';
 import { OpenVidu } from 'openvidu-browser';
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import SessionLogIn from './modules/SessionLogIn';
 import MainFeed from './modules/MainFeed';
+import { IMessage } from './types';
 
 const App = () => {
   const [OV, setOV] = useState<any>(() => new OpenVidu());
@@ -19,6 +19,29 @@ const App = () => {
   const [isMute, setIsMute] = useState<boolean>(false);
   const [messages, setMessages] = useState<IMessage[]>([]);
 
+  const leaveSession = () => {
+    // --- 7) Leave the session by calling 'disconnect' method over the Session object ---
+
+    const mySession = session;
+
+    if (mySession) {
+      mySession.disconnect();
+    }
+
+    // Empty all properties...
+    setOV(null);
+    setMySessionId('Test');
+    setMyUserName('');
+    setSession(undefined);
+    setMainStreamManager(undefined);
+    setPublisher(undefined);
+    setSubscribers([]);
+  };
+
+  const onbeforeunload = () => {
+    leaveSession();
+  };
+
   useEffect(() => {
     if (!mounted.current) {
       // componentDidMount logic
@@ -28,12 +51,8 @@ const App = () => {
     return () => {
       window.removeEventListener('beforeunload', onbeforeunload);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
-
-  const onbeforeunload = () => {
-    leaveSession();
-  };
 
   const handleChangeSessionId = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMySessionId(e.target.value);
@@ -54,20 +73,16 @@ const App = () => {
   };
 
   const deleteSubscriber = (streamManager: any) => {
-    let index = subscribers.indexOf(streamManager, 0);
+    const index = subscribers.indexOf(streamManager, 0);
     if (index > -1) {
       subscribers.splice(index, 1);
       setSubscribers(subscribers);
     }
   };
 
-  const getToken = () => {
-    return createSession(mySessionId).then((sessionId) => createToken(sessionId));
-  };
-
   const createSession = (sessionId: any) => {
     return new Promise((resolve, reject) => {
-      var data = JSON.stringify({ customSessionId: sessionId });
+      const data = JSON.stringify({ customSessionId: sessionId });
       axios
         .post(process.env.REACT_APP_OPENVIDU_SERVER_URL + '/openvidu/api/sessions', data, {
           headers: {
@@ -81,7 +96,7 @@ const App = () => {
           resolve(response.data.id);
         })
         .catch((response) => {
-          var error = Object.assign({}, response);
+          const error = Object.assign({}, response);
           if (error?.response?.status === 409) {
             resolve(sessionId);
           } else {
@@ -111,7 +126,7 @@ const App = () => {
 
   const createToken = (sessionId: any) => {
     return new Promise((resolve, reject) => {
-      var data = {};
+      const data = {};
       axios
         .post(
           process.env.REACT_APP_OPENVIDU_SERVER_URL +
@@ -135,23 +150,8 @@ const App = () => {
     });
   };
 
-  const leaveSession = () => {
-    // --- 7) Leave the session by calling 'disconnect' method over the Session object ---
-
-    const mySession = session;
-
-    if (mySession) {
-      mySession.disconnect();
-    }
-
-    // Empty all properties...
-    setOV(null);
-    setMySessionId('Test');
-    setMyUserName('');
-    setSession(undefined);
-    setMainStreamManager(undefined);
-    setPublisher(undefined);
-    setSubscribers([]);
+  const getToken = () => {
+    return createSession(mySessionId).then((sessionId) => createToken(sessionId));
   };
 
   const toggleMute = () => {
@@ -217,7 +217,7 @@ const App = () => {
       session.on('streamCreated', (event: any) => {
         // Subscribe to the Stream to receive it. Second parameter is undefined
         // so OpenVidu doesn't create an HTML video by its own
-        var subscriber = session.subscribe(event.stream, undefined);
+        const subscriber = session.subscribe(event.stream, undefined);
         subscribers.push(subscriber);
 
         // Update the state with the new subscribers
@@ -249,7 +249,7 @@ const App = () => {
 
             // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
             // element: we will manage it on our own) and with the desired properties
-            let publisher = OV.initPublisher(undefined, {
+            const publisher = OV.initPublisher(undefined, {
               audioSource: undefined, // The source of audio. If undefined default microphone
               videoSource: undefined, // The source of video. If undefined default webcam
               publishAudio: true, // Whether you want to start publishing with your audio unmuted or not

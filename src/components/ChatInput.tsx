@@ -1,3 +1,5 @@
+import { IChatInput } from '../types';
+
 const ChatInput = ({ myMessage, sendMessage, handleChangeMessage }: IChatInput) => {
   return (
     <form onSubmit={sendMessage}>
