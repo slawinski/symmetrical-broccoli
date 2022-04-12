@@ -7,7 +7,7 @@ import { IMessage } from './types';
 
 const App = () => {
   const [OV, setOV] = useState<any>(() => new OpenVidu());
-  const [mySessionId, setMySessionId] = useState<string>('Beesafe');
+  const [mySessionId, setMySessionId] = useState<string>('WarsawJS');
   const [myUserName, setMyUserName] = useState<string>('');
   const [myMessage, setMyMessage] = useState<string>('');
   const [session, setSession] = useState<any>(undefined);
@@ -30,7 +30,7 @@ const App = () => {
 
     // Empty all properties...
     setOV(null);
-    setMySessionId('Beesafe');
+    setMySessionId('WarsawJS');
     setMyUserName('');
     setSession(undefined);
     setMainStreamManager(undefined);
